@@ -1,0 +1,23 @@
+running egg_info
+writing ../../build/RoverInput/RoverInput.egg-info/PKG-INFO
+writing dependency_links to ../../build/RoverInput/RoverInput.egg-info/dependency_links.txt
+writing entry points to ../../build/RoverInput/RoverInput.egg-info/entry_points.txt
+writing requirements to ../../build/RoverInput/RoverInput.egg-info/requires.txt
+writing top-level names to ../../build/RoverInput/RoverInput.egg-info/top_level.txt
+reading manifest file '../../build/RoverInput/RoverInput.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/RoverInput/RoverInput.egg-info/SOURCES.txt'
+running build
+running build_py
+copying RoverInput/input_node.py -> /home/arno/RoombaV2CS/build/RoverInput/build/lib/RoverInput
+running install
+running install_lib
+copying /home/arno/RoombaV2CS/build/RoverInput/build/lib/RoverInput/input_node.py -> /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput
+byte-compiling /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput/input_node.py to input_node.cpython-310.pyc
+running install_data
+copying package.xml -> /home/arno/RoombaV2CS/install/RoverInput/share/RoverInput
+running install_egg_info
+removing '/home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/RoverInput/RoverInput.egg-info to /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/arno/RoombaV2CS/build/RoverInput/install.log'
