@@ -1,0 +1,6 @@
+source;share/RoverInput/hook/pythonpath.ps1
+source;share/RoverInput/hook/pythonpath.dsv
+source;share/RoverInput/hook/pythonpath.sh
+source;share/RoverInput/hook/ament_prefix_path.ps1
+source;share/RoverInput/hook/ament_prefix_path.dsv
+source;share/RoverInput/hook/ament_prefix_path.sh
