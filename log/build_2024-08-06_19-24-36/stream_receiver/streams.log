@@ -1,0 +1,24 @@
+[1.069s] Invoking command in '/home/arno/RoombaV2CS/src/stream_receiver': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/stream_receiver build --build-base /home/arno/RoombaV2CS/build/stream_receiver/build install --record /home/arno/RoombaV2CS/build/stream_receiver/install.log --single-version-externally-managed install_data
+[1.334s] running egg_info
+[1.335s] creating ../../build/stream_receiver/stream_receiver.egg-info
+[1.335s] writing ../../build/stream_receiver/stream_receiver.egg-info/PKG-INFO
+[1.335s] writing dependency_links to ../../build/stream_receiver/stream_receiver.egg-info/dependency_links.txt
+[1.335s] writing entry points to ../../build/stream_receiver/stream_receiver.egg-info/entry_points.txt
+[1.335s] writing requirements to ../../build/stream_receiver/stream_receiver.egg-info/requires.txt
+[1.335s] writing top-level names to ../../build/stream_receiver/stream_receiver.egg-info/top_level.txt
+[1.336s] writing manifest file '../../build/stream_receiver/stream_receiver.egg-info/SOURCES.txt'
+[1.336s] reading manifest file '../../build/stream_receiver/stream_receiver.egg-info/SOURCES.txt'
+[1.337s] writing manifest file '../../build/stream_receiver/stream_receiver.egg-info/SOURCES.txt'
+[1.337s] running build
+[1.337s] running install
+[1.337s] running install_data
+[1.337s] creating /home/arno/RoombaV2CS/install/stream_receiver/share/ament_index
+[1.338s] creating /home/arno/RoombaV2CS/install/stream_receiver/share/ament_index/resource_index
+[1.338s] creating /home/arno/RoombaV2CS/install/stream_receiver/share/ament_index/resource_index/packages
+[1.338s] copying resource/stream_receiver -> /home/arno/RoombaV2CS/install/stream_receiver/share/ament_index/resource_index/packages
+[1.338s] copying package.xml -> /home/arno/RoombaV2CS/install/stream_receiver/share/stream_receiver
+[1.338s] running install_egg_info
+[1.340s] Copying ../../build/stream_receiver/stream_receiver.egg-info to /home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages/stream_receiver-0.0.0-py3.10.egg-info
+[1.341s] running install_scripts
+[1.364s] writing list of installed files to '/home/arno/RoombaV2CS/build/stream_receiver/install.log'
+[1.391s] Invoked command in '/home/arno/RoombaV2CS/src/stream_receiver' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/stream_receiver build --build-base /home/arno/RoombaV2CS/build/stream_receiver/build install --record /home/arno/RoombaV2CS/build/stream_receiver/install.log --single-version-externally-managed install_data

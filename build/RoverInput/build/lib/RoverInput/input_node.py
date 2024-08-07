@@ -6,7 +6,7 @@ import curses
 class InputNode(Node):
     def __init__(self):
         super().__init__('input_node')
-        #reliability best effort qos profile for the subscriber (UDP-like)
+        #reliability best effort qos profile for the publisher (UDP-like)
         self.qos_policy = rclpy.qos.QoSProfile(reliability=rclpy.qos.ReliabilityPolicy.BEST_EFFORT,
                                                history=rclpy.qos.HistoryPolicy.KEEP_LAST,
                                                depth=1)
@@ -21,21 +21,21 @@ class InputNode(Node):
         curses.cbreak()
         stdscr.keypad(False)
 
-        user_input = "stop"
+        user_input = "RV2stop"
         
         try:
             while rclpy.ok():
                 ch = stdscr.getch()
                 if ch == ord('w'):
-                    user_input = "forward"
+                    user_input = "RV2forward"
                 elif ch == ord('a'):
-                    user_input = "left"
+                    user_input = "RV2left"
                 elif ch == ord('s'):
-                    user_input = "backwards"
+                    user_input = "RV2backwards"
                 elif ch == ord('d'):
-                    user_input = "right"
+                    user_input = "RV2right"
                 else:
-                    user_input = "stop"
+                    user_input = "RV2stop"
                 msg = String()
                 msg.data = user_input
                 self.publisher_.publish(msg)

@@ -1,0 +1,14 @@
+package.xml
+setup.cfg
+setup.py
+../../build/stream_receiver/stream_receiver.egg-info/PKG-INFO
+../../build/stream_receiver/stream_receiver.egg-info/SOURCES.txt
+../../build/stream_receiver/stream_receiver.egg-info/dependency_links.txt
+../../build/stream_receiver/stream_receiver.egg-info/entry_points.txt
+../../build/stream_receiver/stream_receiver.egg-info/requires.txt
+../../build/stream_receiver/stream_receiver.egg-info/top_level.txt
+../../build/stream_receiver/stream_receiver.egg-info/zip-safe
+resource/stream_receiver
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
