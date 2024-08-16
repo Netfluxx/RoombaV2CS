@@ -67,7 +67,34 @@ void loop(){
     if(current_time - prev_time >= 75){  // Calculate speed every 75 milliseconds
         int total_count = enc1_count + enc2_count;
         
-        //how do i get the current direction of the wheel ?????
+        //getting wheel direction: encoders are in quadrature 
+        //so we can determine direction by checking the relative phase of the two encoder signals
+        int previous_phase = 0;
+
+        bool wheel_direction = true; //true for forward, false for backward
+        //ENCPIN1 is shifted by 1 bit to the left (becomes MSB), ENCPIN2 is not shifted (LSB)
+        int current_phase = (digitalRead(ENCPIN1) << 1) | digitalRead(ENCPIN2);
+        //ENCPIN1=0, ENCPIN2=0 -> phase=0
+        //ENCPIN1=0, ENCPIN2=1 -> phase=1
+        //ENCPIN1=1, ENCPIN2=0 -> phase=2
+        //ENCPIN1=1, ENCPIN2=1 -> phase=3
+        //if the phase changes from 0 to 1, 1 to 3, 3 to 2, 2 to 0 --> forwards
+        //if the phase changes from 0 to 2, 2 to 3, 3 to 1, 1 to 0 --> backwards
+
+        //WARNING: ASSUMES CORRECT POSITION OF BOTH ENCODERS ON DISK, HIGH CHANCE OF 'OFF BY ONE' ERROR FOR THE DIRECTION
+
+        if ((previous_phase == 0 && current_phase == 1) ||
+            (previous_phase == 1 && current_phase == 3) ||
+            (previous_phase == 3 && current_phase == 2) ||
+            (previous_phase == 2 && current_phase == 0)) {
+            wheel_direction = true;  // Forwards
+        } else if ((previous_phase == 0 && current_phase == 2) ||
+                (previous_phase == 2 && current_phase == 3) ||
+                (previous_phase == 3 && current_phase == 1) ||
+                (previous_phase == 1 && current_phase == 0)) {
+            wheel_direction = false;  // Backwards
+        }
+        previous_phase = current_phase;
 
         distance_travelled += (total_count * 2 * PI * WHEEL_RADIUS) / (DISK_SLOTS * 4);
         speed = (total_count * 2 * PI * WHEEL_RADIUS) / (DISK_SLOTS * 4) / ((current_time - prev_time) / 1000.0);
