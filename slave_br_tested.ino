@@ -1,0 +1,114 @@
+//front right arduino slave code
+//implements PID control and encoder reading and data transmission to master via I2C
+#include <Wire.h>
+
+const int I2C_ADDR = 0x30;
+
+//front right = 0x10, front left = 0x20, back right = 0x30, back left = 0x40
+
+const byte CMD_FORWARD = 0x01;
+const byte CMD_BACKWARD = 0x02;
+const byte CMD_RIGHT = 0x03;
+const byte CMD_LEFT = 0x04;
+const byte CMD_STOP = 0x05;
+const byte CMD_ERR = 0xff;
+byte prev_command = 0xff;
+
+const int IN1 = 9;
+const int IN2 = 10;
+
+// Encoder hardware interrupt pins
+const int ENCPIN1 = 2;
+const int ENCPIN2 = 3;
+
+const float DISK_SLOTS = 40;  // TODO:update to real value
+const float WHEEL_RADIUS = 0.05;  //TODO: update to real value
+
+volatile int enc1_count = 0;  // Volatile because it is modified in an interrupt, not unsigned because it can be negative (reverse direction)
+volatile int enc2_count = 0;
+
+unsigned long prev_time = 0;
+unsigned long current_time = 0;
+
+volatile float received_cmd = 0.0;
+volatile float distance_travelled = 0.0;
+volatile float speed = 0.0;
+
+
+//PID gains
+const float KP = 0.5;
+const float KI = 0.5;
+const float KD = 0.5;
+volatile float prev_error = 0.0;
+
+void setup() {
+    // Initialize the motor pins
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
+    
+    // Initialize the encoder hardware interrupt pins
+    pinMode(ENCPIN1, INPUT);
+    pinMode(ENCPIN2, INPUT);
+    attachInterrupt(digitalPinToInterrupt(ENCPIN1), isr_enc1, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(ENCPIN2), isr_enc2, CHANGE);
+
+    Serial.begin(9600);
+    Wire.begin(I2C_ADDR);
+    Wire.onReceive(receiveEvent);
+    // Wire.onRequest(requestEvent);
+    
+    prev_time = millis();
+}
+
+void loop(){
+}
+
+void receiveEvent(int howMany){ //polled by master arduino on a timer
+    while (Wire.available()){
+        //float = 4 bytes
+        byte float_bytes[4];
+        for (int i = 0; i < 4; i++) {
+            float_bytes[i] = Wire.read();
+        }
+        received_cmd = *((float*)float_bytes);
+        executeCommand(received_cmd); 
+    }
+}
+
+
+
+void executeCommand(float command){//command = target speed in m/s
+
+    
+    int new_command = constrain(round(command*255), -255, 255);
+
+    if (new_command > 0){
+        analogWrite(IN2, new_command);
+        analogWrite(IN1, 0);
+    } else {
+        analogWrite(IN2, 0);
+        analogWrite(IN1, -new_command);
+    }
+    
+}
+
+void isr_enc1(){
+    if (digitalRead(ENCPIN1) != digitalRead(ENCPIN2)){
+        enc1_count++;
+    } else {
+        enc1_count--;
+    }
+}
+
+
+void isr_enc2(){
+    if (digitalRead(ENCPIN2) != digitalRead(ENCPIN1)){
+        enc2_count++;
+    } else {
+        enc2_count--;
+    }
+}
+
+int sign(float value) {
+    return (value > 0) - (value < 0);
+}

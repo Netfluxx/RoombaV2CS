@@ -14,6 +14,24 @@ const byte SLAVE_BL = 0x40;
 void setup() {
   Wire.begin();
   Serial.begin(9600);
+  for (int i = 0; i < 4; i++) {
+    byte slave_addr = 0xff;
+    switch (i) {
+        case 0: slave_addr = SLAVE_FR; break;
+        case 1: slave_addr = SLAVE_FL; break;
+        case 2: slave_addr = SLAVE_BR; break;
+        case 3: slave_addr = SLAVE_BL; break;
+        default: break;
+    }
+
+    Wire.beginTransmission(slave_addr);
+    if (Wire.endTransmission() == 0) {
+        Serial.println(String(slave_names[i]) + " SLAVE DETECTED 0x" + String(slave_addr, HEX));
+    } else {
+        Serial.println(String(slave_names[i]) + " SLAVE NOT DETECTED 0x" + String(slave_addr, HEX));
+    }
+  }
+
 }
 
 void loop() {
@@ -31,7 +49,7 @@ void loop() {
             i++;
         }
        
-        Serial.println("sent speeds:"+ String(speed[0]) + "," + String(speed[1]) + "," + String(speed[2]) + "," + String(speed[3]));
+        Serial.println("Master SPEEDS:"+ String(speed[0]) + "," + String(speed[1]) + "," + String(speed[2]) + "," + String(speed[3]));
         
 
         for(int slave_index=1; slave_index<5; slave_index++){
