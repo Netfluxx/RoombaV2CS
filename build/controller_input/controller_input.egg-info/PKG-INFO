@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: controller-input
+Version: 0.0.0
+Summary: package to read and publish ps4 controller inputs for rover control
+Home-page: UNKNOWN
+Maintainer: arno
+Maintainer-email: arno.blan334@gmail.com
+License: Apache-2.0
+Platform: UNKNOWN
+License-File: LICENSE
+
+UNKNOWN
+

@@ -8,6 +8,8 @@ const byte SLAVE_FL = 0x20;
 const byte SLAVE_BR = 0x30;
 const byte SLAVE_BL = 0x40;
 
+//front right = 0x10, front left = 0x20, back right = 0x30, back left = 0x40
+
 
 void setup() {
   Wire.begin();

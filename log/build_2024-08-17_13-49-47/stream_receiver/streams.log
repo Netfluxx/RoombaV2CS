@@ -1,0 +1,25 @@
+[1.848s] Invoking command in '/home/arno/RoombaV2CS/build/stream_receiver': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --uninstall --editable --build-directory /home/arno/RoombaV2CS/build/stream_receiver/build
+[2.301s] running develop
+[2.301s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[2.301s]   warnings.warn(
+[2.594s] Removing /home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages/stream-receiver.egg-link (link to .)
+[2.644s] Invoked command in '/home/arno/RoombaV2CS/build/stream_receiver' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --uninstall --editable --build-directory /home/arno/RoombaV2CS/build/stream_receiver/build
+[2.646s] Invoking command in '/home/arno/RoombaV2CS/src/stream_receiver': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/stream_receiver build --build-base /home/arno/RoombaV2CS/build/stream_receiver/build install --record /home/arno/RoombaV2CS/build/stream_receiver/install.log --single-version-externally-managed install_data --force
+[3.047s] running egg_info
+[3.049s] writing ../../build/stream_receiver/stream_receiver.egg-info/PKG-INFO
+[3.049s] writing dependency_links to ../../build/stream_receiver/stream_receiver.egg-info/dependency_links.txt
+[3.049s] writing entry points to ../../build/stream_receiver/stream_receiver.egg-info/entry_points.txt
+[3.050s] writing requirements to ../../build/stream_receiver/stream_receiver.egg-info/requires.txt
+[3.050s] writing top-level names to ../../build/stream_receiver/stream_receiver.egg-info/top_level.txt
+[3.052s] reading manifest file '../../build/stream_receiver/stream_receiver.egg-info/SOURCES.txt'
+[3.054s] writing manifest file '../../build/stream_receiver/stream_receiver.egg-info/SOURCES.txt'
+[3.054s] running build
+[3.054s] running install
+[3.055s] running install_data
+[3.055s] copying resource/stream_receiver -> /home/arno/RoombaV2CS/install/stream_receiver/share/ament_index/resource_index/packages
+[3.055s] copying package.xml -> /home/arno/RoombaV2CS/install/stream_receiver/share/stream_receiver
+[3.055s] running install_egg_info
+[3.062s] Copying ../../build/stream_receiver/stream_receiver.egg-info to /home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages/stream_receiver-0.0.0-py3.10.egg-info
+[3.064s] running install_scripts
+[3.101s] writing list of installed files to '/home/arno/RoombaV2CS/build/stream_receiver/install.log'
+[3.162s] Invoked command in '/home/arno/RoombaV2CS/src/stream_receiver' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/stream_receiver build --build-base /home/arno/RoombaV2CS/build/stream_receiver/build install --record /home/arno/RoombaV2CS/build/stream_receiver/install.log --single-version-externally-managed install_data --force

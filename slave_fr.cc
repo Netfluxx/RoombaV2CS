@@ -4,6 +4,9 @@
 
 const int I2C_ADDR = 0x10;
 
+//front right = 0x10, front left = 0x20, back right = 0x30, back left = 0x40
+
+
 const byte CMD_FORWARD = 0x01;
 const byte CMD_BACKWARD = 0x02;
 const byte CMD_RIGHT = 0x03;

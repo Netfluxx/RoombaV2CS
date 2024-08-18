@@ -1,0 +1,18 @@
+running develop
+/usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running egg_info
+writing stream_receiver.egg-info/PKG-INFO
+writing dependency_links to stream_receiver.egg-info/dependency_links.txt
+writing entry points to stream_receiver.egg-info/entry_points.txt
+writing requirements to stream_receiver.egg-info/requires.txt
+writing top-level names to stream_receiver.egg-info/top_level.txt
+reading manifest file 'stream_receiver.egg-info/SOURCES.txt'
+writing manifest file 'stream_receiver.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages/stream-receiver.egg-link (link to .)
+
+Installed /home/arno/RoombaV2CS/build/stream_receiver
+running symlink_data
+symbolically linking /home/arno/RoombaV2CS/build/stream_receiver/resource/stream_receiver -> /home/arno/RoombaV2CS/install/stream_receiver/share/ament_index/resource_index/packages
+symbolically linking /home/arno/RoombaV2CS/build/stream_receiver/package.xml -> /home/arno/RoombaV2CS/install/stream_receiver/share/stream_receiver
