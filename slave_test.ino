@@ -106,7 +106,7 @@ void executeCommand(float command){//command = target speed in m/s
     //TODO: check if this is the correct way to calculate the new command
     //TODO: how can I take into account the direction of the wheel in the PID control?
     
-    new_command = constrain(new_command*5, -255, 255);
+    int new_command = constrain(round(command*255), -255, 255);
 
     if (new_command > 0){
         analogWrite(IN1, new_command);

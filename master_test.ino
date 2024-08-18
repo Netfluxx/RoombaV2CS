@@ -30,8 +30,12 @@ void loop() {
             token = strtok(NULL, ",");
             i++;
         }
+       
+        Serial.println("sent speeds:"+ String(speed[0]) + "," + String(speed[1]) + "," + String(speed[2]) + "," + String(speed[3]));
+        
 
         for(int slave_index=1; slave_index<5; slave_index++){
+            byte slave_addr = 0xff;
             switch(slave_index){
                 case 1:
                     slave_addr = SLAVE_FR;
@@ -40,7 +44,7 @@ void loop() {
                     slave_addr = SLAVE_FL;
                 break;
                 case 3:
-                    lave_addr = SLAVE_BR;
+                    slave_addr = SLAVE_BR;
                 break;
                 case 4:
                     slave_addr = SLAVE_BL;
@@ -51,7 +55,6 @@ void loop() {
             Wire.beginTransmission(slave_addr);
             Wire.write((byte*)&speeds[slave_index-1], sizeof(float));
             Wire.endTransmission();
-            Serial.println("sent speed"+ String(speed[slave_index-1]) + "to slave " + String(slave_index));
 
 
             // //request the speed and distance travelled from the slave
@@ -70,5 +73,6 @@ void loop() {
             // String msg = String(slave_index) + "," + String(speed) + "," + String(distance);
             // Serial.println(msg);
         }
+
     }
 }
