@@ -9,6 +9,7 @@ setup.py
 ../../build/GUI/GUI.egg-info/top_level.txt
 ../../build/GUI/GUI.egg-info/zip-safe
 GUI/__init__.py
+GUI/fake_occupancy_grid_publisher.py
 GUI/gui.py
 resource/GUI
 test/test_copyright.py

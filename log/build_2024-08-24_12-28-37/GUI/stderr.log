@@ -1,0 +1,5 @@
+  File "/home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI/gui.py", line 154
+    img = Image.fromarray(
+                         ^
+SyntaxError: '(' was never closed
+

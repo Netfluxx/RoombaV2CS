@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'gui = GUI.gui:main',
+            'fake_map_pub = GUI.fake_occupancy_grid_publisher:main',
         ],
     },
 )
