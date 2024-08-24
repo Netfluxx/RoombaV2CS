@@ -8,67 +8,88 @@ from threading import Thread
 import cv2
 from PIL import Image
 import numpy as np
-from customtkinter import CTkImage  # Import CTkImage
+from customtkinter import CTkImage
+import os
+
 
 class RoverDashboard(Node):
     def __init__(self):
         super().__init__('rover_dashboard')
 
-        # Create subscriber to the topic /wheel_speeds
-        self.subscription = self.create_subscription(
-            String,
-            '/wheel_speeds',
-            self.wheel_speeds_callback,
-            10)
-        self.subscription  # prevent unused variable warning
-        self.wheel_speeds_list = []
-
+        # ROS2 subscriptions
+        self.create_subscription(String, '/wheel_speeds', self.wheel_speeds_callback, 10)
         self.create_subscription(Odometry, '/odom', self.odom_callback, 10)
         self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)
 
         # Initialize the tkinter window
         self.root = ctk.CTk()
         self.root.title("Rover Dashboard")
-        self.root.geometry("1200x800")  # Adjusted for wider layout
+        self.root.geometry("1600x900")
 
-        # Camera Frame using Label
+        # Configure grid
+        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_columnconfigure(1, weight=1)
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_rowconfigure(1, weight=1)
+        self.root.grid_rowconfigure(2, weight=1)
+
+        # Camera Frame
         self.camera_frame = ctk.CTkFrame(self.root, corner_radius=10)
-        self.camera_frame.grid(row=0, column=0, padx=10, pady=10, sticky="ew")
+        self.camera_frame.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
-        # Initialize the CTkLabel with no default text for the camera
         self.camera_label = ctk.CTkLabel(self.camera_frame, width=640, height=480, text="")
         self.camera_label.pack()
 
-        # Map Frame using Label
+        # Map Frame
         self.map_frame = ctk.CTkFrame(self.root, corner_radius=10)
-        self.map_frame.grid(row=0, column=1, padx=10, pady=10, sticky="ew")
+        self.map_frame.grid(row=0, column=1, padx=10, pady=10, sticky="nsew")
 
-        # Initialize the CTkLabel with no default text for the map
         self.map_label = ctk.CTkLabel(self.map_frame, width=640, height=480, text="")
         self.map_label.pack()
+
+        # Terminal Frame for wavemon
+        char_width = 8
+        char_height = 16
+        frame_width = 70 * char_width
+        frame_height = 24 * char_height
+
+        self.terminal_frame = ctk.CTkFrame(
+            self.root, 
+            corner_radius=10,
+            width=frame_width, 
+            height=frame_height, 
+            fg_color="black"
+        )
+
+        self.terminal_frame.grid(row=1, column=0, columnspan=1, rowspan=1, padx=0, pady=0, sticky="nsew")
+        self.terminal_frame.grid_propagate(False)
+
+        # Embedding wavemon in terminal
+        self.embed_terminal()
 
         # Other UI elements (Speed, Battery, Controls)
         self.linear_speed_var = tk.StringVar(value="Rover speed N/A")
         self.linear_speed_label = ctk.CTkLabel(self.root, textvariable=self.linear_speed_var)
-        self.linear_speed_label.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
+        self.linear_speed_label.grid(row=3, column=1, padx=10, pady=5, sticky="se")
 
         self.battery_var = tk.StringVar(value="Battery: inchallah%")
         self.battery_label = ctk.CTkLabel(self.root, textvariable=self.battery_var)
-        self.battery_label.grid(row=2, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
+        self.battery_label.grid(row=3, column=0, padx=10, pady=5, sticky="se")
 
-        self.autonomous_button = ctk.CTkButton(self.root, text="Switch to Autonomous", command=self.switch_to_autonomous)
-        self.autonomous_button.grid(row=3, column=0, padx=5, pady=5)
-
-        self.manual_button = ctk.CTkButton(self.root, text="Switch to Manual", command=self.switch_to_manual)
-        self.manual_button.grid(row=3, column=1, padx=5, pady=5)
-
-        # Initialize wheel speed labels
+        # Initialize wheel speed labels (Bottom Right)
         self.wheel_names = ["Front Right", "Front Left", "Back Right", "Back Left"]
         self.wheel_speed_labels = {}
         for i, name in enumerate(self.wheel_names):
             label = ctk.CTkLabel(self.root, text=f"{name}: N/A")
-            label.grid(row=4+i, column=0, columnspan=2, padx=5, pady=5)
+            label.grid(row=4, column=i, padx=10, pady=2, sticky="se")
             self.wheel_speed_labels[name] = label
+
+        # Control Buttons
+        self.autonomous_button = ctk.CTkButton(self.root, text="Switch to Autonomous", command=self.switch_to_autonomous)
+        self.autonomous_button.grid(row=1, column=2, padx=5, pady=5, sticky="se")
+
+        self.manual_button = ctk.CTkButton(self.root, text="Switch to Manual", command=self.switch_to_manual)
+        self.manual_button.grid(row=1, column=3, padx=5, pady=5, sticky="se")
 
         # Start ROS2 in a separate thread
         ros_thread = Thread(target=self.run_ros2)
@@ -77,6 +98,13 @@ class RoverDashboard(Node):
         # Start the GStreamer video stream in a separate thread
         self.video_thread = Thread(target=self.start_video_stream)
         self.video_thread.start()
+
+    def embed_terminal(self):
+        # Ensure the terminal frame is ready
+        self.terminal_frame.update_idletasks()
+        terminal_id = self.terminal_frame.winfo_id()
+        command = f"xterm -into {terminal_id} -geometry 80x24 -fa 'Monospace' -e wavemon &"
+        os.system(command)
 
     def run_ros2(self):
         rclpy.spin(self)
@@ -90,7 +118,6 @@ class RoverDashboard(Node):
 
             self.wheel_speeds_list = [f"{float(speed):.2f}" for speed in self.wheel_speeds_list]
             self.wheel_speeds = dict(zip(self.wheel_names, self.wheel_speeds_list))
-            # Update wheel speeds in GUI as soon as they are received
             self.root.after(0, self.update_wheel_speeds)
 
         except Exception as e:
@@ -101,7 +128,6 @@ class RoverDashboard(Node):
             self.wheel_speed_labels[name].configure(text=f"{name}: {speed} m/s")
 
     def odom_callback(self, msg):
-        # Process odometry data
         linear_speed = msg.twist.twist.linear.x
         self.linear_speed_var.set(f"odom: {linear_speed:.2f} m/s")
 
@@ -121,7 +147,7 @@ class RoverDashboard(Node):
         ctk_img = CTkImage(light_image=pil_image, dark_image=pil_image, size=(640, 480))
 
         self.map_label.configure(image=ctk_img)
-        self.map_label.image = ctk_img  # Prevent garbage collection
+        self.map_label.image = ctk_img
 
     def switch_to_autonomous(self):
         print("Switched to Autonomous")
@@ -130,11 +156,9 @@ class RoverDashboard(Node):
         print("Switched to Manual")
 
     def update_dashboard(self):
-        # Update other dashboard elements in real-time if necessary
-        self.root.after(60, self.update_dashboard)  # Update every 60ms (arbitrary)
+        self.root.after(60, self.update_dashboard)
 
     def start_video_stream(self):
-        # Assuming you are receiving an RTP stream via GStreamer:
         gst_pipeline = (
             "udpsrc port=5000 ! "
             "application/x-rtp,encoding-name=JPEG,payload=26 ! "
@@ -150,20 +174,13 @@ class RoverDashboard(Node):
         while cap.isOpened():
             ret, frame = cap.read()
             if ret:
-                # Resize the frame to fit the Label's dimensions
-                frame = cv2.resize(frame, (640, 480))  # Match the label's size
-
-                # Convert the frame to ImageTk format for displaying in tkinter
+                frame = cv2.resize(frame, (640, 480))
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 img = Image.fromarray(frame)
 
-                # Convert PIL image to CTkImage
                 ctk_img = CTkImage(light_image=img, dark_image=img, size=(640, 480))
 
-                # Update the Label with the new image
                 self.camera_label.configure(image=ctk_img)
-
-                # Prevent the image from being garbage collected
                 self.camera_label.image = ctk_img
 
             else:
@@ -175,11 +192,9 @@ def main(args=None):
     rclpy.init(args=args)
     node = RoverDashboard()
 
-    # Start the tkinter main loop in the main thread
     node.update_dashboard()
     node.root.mainloop()
 
-    # Clean up
     node.destroy_node()
     rclpy.shutdown()
 

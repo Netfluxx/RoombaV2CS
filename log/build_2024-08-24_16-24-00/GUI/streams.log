@@ -1,0 +1,43 @@
+[1.699s] Invoking command in '/home/arno/RoombaV2CS/src/GUI': PYTHONPATH=/home/arno/RoombaV2CS/build/GUI/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/GUI build --build-base /home/arno/RoombaV2CS/build/GUI/build install --record /home/arno/RoombaV2CS/build/GUI/install.log --single-version-externally-managed install_data
+[2.333s] running egg_info
+[2.334s] creating ../../build/GUI/GUI.egg-info
+[2.334s] writing ../../build/GUI/GUI.egg-info/PKG-INFO
+[2.335s] writing dependency_links to ../../build/GUI/GUI.egg-info/dependency_links.txt
+[2.335s] writing entry points to ../../build/GUI/GUI.egg-info/entry_points.txt
+[2.335s] writing requirements to ../../build/GUI/GUI.egg-info/requires.txt
+[2.336s] writing top-level names to ../../build/GUI/GUI.egg-info/top_level.txt
+[2.336s] writing manifest file '../../build/GUI/GUI.egg-info/SOURCES.txt'
+[2.340s] reading manifest file '../../build/GUI/GUI.egg-info/SOURCES.txt'
+[2.341s] writing manifest file '../../build/GUI/GUI.egg-info/SOURCES.txt'
+[2.342s] running build
+[2.342s] running build_py
+[2.342s] creating /home/arno/RoombaV2CS/build/GUI/build
+[2.342s] creating /home/arno/RoombaV2CS/build/GUI/build/lib
+[2.342s] creating /home/arno/RoombaV2CS/build/GUI/build/lib/GUI
+[2.343s] copying GUI/fake_occupancy_grid_publisher.py -> /home/arno/RoombaV2CS/build/GUI/build/lib/GUI
+[2.343s] copying GUI/gui.py -> /home/arno/RoombaV2CS/build/GUI/build/lib/GUI
+[2.343s] copying GUI/__init__.py -> /home/arno/RoombaV2CS/build/GUI/build/lib/GUI
+[2.343s] running install
+[2.344s] running install_lib
+[2.346s] creating /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI
+[2.346s] copying /home/arno/RoombaV2CS/build/GUI/build/lib/GUI/fake_occupancy_grid_publisher.py -> /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI
+[2.346s] copying /home/arno/RoombaV2CS/build/GUI/build/lib/GUI/gui.py -> /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI
+[2.346s] copying /home/arno/RoombaV2CS/build/GUI/build/lib/GUI/__init__.py -> /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI
+[2.347s] byte-compiling /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI/fake_occupancy_grid_publisher.py to fake_occupancy_grid_publisher.cpython-310.pyc
+[2.349s] byte-compiling /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI/gui.py to gui.cpython-310.pyc
+[2.353s] byte-compiling /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI/__init__.py to __init__.cpython-310.pyc
+[2.353s] running install_data
+[2.353s] creating /home/arno/RoombaV2CS/install/GUI/share
+[2.353s] creating /home/arno/RoombaV2CS/install/GUI/share/ament_index
+[2.354s] creating /home/arno/RoombaV2CS/install/GUI/share/ament_index/resource_index
+[2.354s] creating /home/arno/RoombaV2CS/install/GUI/share/ament_index/resource_index/packages
+[2.354s] copying resource/GUI -> /home/arno/RoombaV2CS/install/GUI/share/ament_index/resource_index/packages
+[2.354s] creating /home/arno/RoombaV2CS/install/GUI/share/GUI
+[2.354s] copying package.xml -> /home/arno/RoombaV2CS/install/GUI/share/GUI
+[2.355s] running install_egg_info
+[2.358s] Copying ../../build/GUI/GUI.egg-info to /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI-0.0.1-py3.10.egg-info
+[2.359s] running install_scripts
+[2.406s] Installing fake_map_pub script to /home/arno/RoombaV2CS/install/GUI/lib/GUI
+[2.407s] Installing gui script to /home/arno/RoombaV2CS/install/GUI/lib/GUI
+[2.407s] writing list of installed files to '/home/arno/RoombaV2CS/build/GUI/install.log'
+[2.456s] Invoked command in '/home/arno/RoombaV2CS/src/GUI' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/GUI/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/GUI build --build-base /home/arno/RoombaV2CS/build/GUI/build install --record /home/arno/RoombaV2CS/build/GUI/install.log --single-version-externally-managed install_data

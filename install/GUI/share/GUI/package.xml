@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>GUI</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>ROS2 Node that subscribes to the rover data and displays it using customtkinter and matplotlib</description>
   <maintainer email="arno.blan334@gmail.com">arno</maintainer>
   <license>Apache License 2.0</license>
