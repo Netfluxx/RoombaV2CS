@@ -1,0 +1,7 @@
+Pillow
+customtkinter
+matplotlib
+numpy
+opencv-python
+rclpy
+setuptools
