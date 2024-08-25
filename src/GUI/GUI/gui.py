@@ -10,7 +10,9 @@ from PIL import Image
 import numpy as np
 from customtkinter import CTkImage
 import os
-
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import random
 
 class RoverDashboard(Node):
     def __init__(self):
@@ -20,6 +22,11 @@ class RoverDashboard(Node):
         self.create_subscription(String, '/wheel_speeds', self.wheel_speeds_callback, 10)
         self.create_subscription(Odometry, '/odom', self.odom_callback, 10)
         self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)
+        self.create_subscription(String, '/battery_and_cpu', self.battery_callback, 10)
+        
+        #ROS2 publisher for buttons to switch between manual and autonomous
+        self.rover_mode_publisher = self.create_publisher(String, '/rover_mode', 10)
+
 
         # Initialize the tkinter window
         self.root = ctk.CTk()
@@ -78,6 +85,7 @@ class RoverDashboard(Node):
 
         # Initialize wheel speed labels (Bottom Right)
         self.wheel_names = ["Front Right", "Front Left", "Back Right", "Back Left"]
+        self.wheel_speeds = {name: 0 for name in self.wheel_names}  # Initialize wheel speeds
         self.wheel_speed_labels = {}
         for i, name in enumerate(self.wheel_names):
             label = ctk.CTkLabel(self.root, text=f"{name}: N/A")
@@ -91,6 +99,20 @@ class RoverDashboard(Node):
         self.manual_button = ctk.CTkButton(self.root, text="Switch to Manual", command=self.switch_to_manual)
         self.manual_button.grid(row=1, column=3, padx=5, pady=5, sticky="se")
 
+        # Initialize matplotlib figure for the wheel speeds graph
+        self.fig, self.ax = plt.subplots(figsize=(5, 4))
+        self.ax.set_title("Wheel Speeds Over Time")
+        self.ax.set_xlabel("Time (s)")
+        self.ax.set_ylabel("Speed (m/s)")
+        self.ax.set_ylim(-1, 5)  # Adjust limits based on expected speeds
+        self.time_data = []
+        self.speed_data = {name: [] for name in self.wheel_names}
+        self.lines = {name: self.ax.plot([], [], label=name)[0] for name in self.wheel_names}
+
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self.root)
+        self.canvas.get_tk_widget().grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
+        self.canvas.draw()
+
         # Start ROS2 in a separate thread
         ros_thread = Thread(target=self.run_ros2)
         ros_thread.start()
@@ -99,11 +121,14 @@ class RoverDashboard(Node):
         self.video_thread = Thread(target=self.start_video_stream)
         self.video_thread.start()
 
+        # Test updating wheel speeds manually
+        self.root.after(1000, self.test_update_speeds)
+
     def embed_terminal(self):
         # Ensure the terminal frame is ready
         self.terminal_frame.update_idletasks()
         terminal_id = self.terminal_frame.winfo_id()
-        command = f"xterm -into {terminal_id} -geometry 80x24 -fa 'Monospace' -e wavemon &"
+        command = f"xterm -into {terminal_id} -geometry 76x24 -fa 'Monospace' -e wavemon &"
         os.system(command)
 
     def run_ros2(self):
@@ -111,21 +136,52 @@ class RoverDashboard(Node):
 
     def wheel_speeds_callback(self, msg):
         try:
-            self.wheel_speeds_list = msg.data.split(",")
-            if len(self.wheel_speeds_list) != 4:
-                self.get_logger().error(f"Received incorrect number of wheel speeds: {self.wheel_speeds_list}")
-                return
+            print("Wheel speeds callback triggered")  # Debugging statement
+            # Generate random speeds for testing
+            self.wheel_speeds_list = [random.uniform(0, 5) for _ in range(4)]
+            for i, name in enumerate(self.wheel_names):
+                self.wheel_speeds[name] = self.wheel_speeds_list[i]
 
-            self.wheel_speeds_list = [f"{float(speed):.2f}" for speed in self.wheel_speeds_list]
-            self.wheel_speeds = dict(zip(self.wheel_names, self.wheel_speeds_list))
-            self.root.after(0, self.update_wheel_speeds)
+            # Update the wheel speed labels
+            for name, speed in self.wheel_speeds.items():
+                self.wheel_speed_labels[name].configure(text=f"{name}: {speed:.2f} m/s")
+
+            # Update the graph with the new wheel speeds
+            self.root.after(0, self.update_graph)
 
         except Exception as e:
             self.get_logger().error(f"Error processing wheel speeds: {str(e)}")
 
-    def update_wheel_speeds(self):
-        for name, speed in self.wheel_speeds.items():
-            self.wheel_speed_labels[name].configure(text=f"{name}: {speed} m/s")
+    def update_graph(self):
+        time_point = len(self.time_data) / 10  # Simulate time (assuming 10Hz data rate)
+        self.time_data.append(time_point)
+        
+        # Keep the graph focused on the last 10 seconds
+        current_time = self.time_data[-1]
+        time_window_start = max(0, current_time - 10)
+
+        for name in self.wheel_names:
+            self.speed_data[name].append(self.wheel_speeds[name])
+            self.lines[name].set_data(self.time_data, self.speed_data[name])
+
+        self.ax.set_xlim(time_window_start, current_time+2)  # Focus on the last 10 seconds
+        
+        # Update y-axis limits based on the current data range
+        min_speed = min([min(speeds) for speeds in self.speed_data.values() if speeds])
+        max_speed = max([max(speeds) for speeds in self.speed_data.values() if speeds])
+        self.ax.set_ylim(min(min_speed, 0), max(max_speed, 5))
+
+        self.ax.legend(loc="upper right")
+        self.canvas.draw()
+
+
+    def test_update_speeds(self):
+        # Simulate wheel speeds to manually trigger updates
+        print("Testing update speeds manually")
+        self.wheel_speeds_callback(None)  # Passing None since we're not using the msg
+
+        # Re-trigger every second for testing
+        self.root.after(1000, self.test_update_speeds)
 
     def odom_callback(self, msg):
         linear_speed = msg.twist.twist.linear.x
@@ -151,9 +207,15 @@ class RoverDashboard(Node):
 
     def switch_to_autonomous(self):
         print("Switched to Autonomous")
+        msg = String()
+        msg.data = "autonomous"
+        self.rover_mode_publisher.publish(msg)
 
     def switch_to_manual(self):
         print("Switched to Manual")
+        msg = String()
+        msg.data = "manual"
+        self.rover_mode_publisher.publish(msg)
 
     def update_dashboard(self):
         self.root.after(60, self.update_dashboard)
