@@ -221,6 +221,7 @@ class RoverDashboard(Node):
         self.root.after(60, self.update_dashboard)
 
     def start_video_stream(self):
+        
         gst_pipeline = (
             "udpsrc port=5000 ! "
             "application/x-rtp,encoding-name=JPEG,payload=26 ! "
