@@ -39,7 +39,7 @@ int buffer_sum = 0;
 int direction_avg = 0;
 
 //moving avg for speed
-const int SPEED_BUFFER_SIZE = 20; //may be too big dunno gotta test with working encoders
+const int SPEED_BUFFER_SIZE = 6; //may be too big dunno gotta test with working encoders
 float speed_buffer[SPEED_BUFFER_SIZE];
 int speed_buffer_index = 0;
 float speed_sum = 0;
@@ -47,9 +47,9 @@ float speed_avg = 0;
 
 
 //PID Control
-float Kp = 0.1;  // Proportional gain
-float Ki = 0.01;  // Integral gain
-float Kd = 0.005;  // Derivative gain
+float Kp = 160.0;  // Proportional gain
+float Ki = 33.0;  // Integral gain
+float Kd = 26.0;  // Derivative gain
 float prev_error = 0.0;  // Last error value
 float integral = 0.0;  // Integral sum
 float output = 0.0;
@@ -57,6 +57,8 @@ float output = 0.0;
 
 void setup() {
     // hardware interrupt pins
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
     pinMode(ENCPIN1, INPUT);
     pinMode(ENCPIN2, INPUT);
     attachInterrupt(digitalPinToInterrupt(ENCPIN1), isr_enc1, CHANGE);
@@ -79,7 +81,8 @@ void setup() {
 
 void loop() {
     long current_time = millis();
-    long delta_time = current_time - prev_measure_time;
+    delta_time = current_time - prev_measure_time;
+
 
     if(delta_time>10){ //calculate every 30ms but dunno if thats good or not
         int delta_enc1_count = abs(enc1_count - prev_enc1_count);
@@ -95,6 +98,7 @@ void loop() {
         speed_sum += speed;
         speed_buffer_index = (speed_buffer_index + 1) % SPEED_BUFFER_SIZE;
         speed_avg = speed_sum / SPEED_BUFFER_SIZE;
+        Serial.print("SPEED. "+String(speed_avg)+"\n");
 
         float first_half_avg = 0;
         float second_half_avg = 0;
@@ -139,8 +143,11 @@ void loop() {
         direction = "STATIC";
     }
 
-    Serial.print(direction + "\n");
-    Serial.print(String(direction_avg)+"\n");
+    //Serial.print(direction + "\n");
+    //Serial.print(String(direction_avg)+"\n");
+
+    executeCommand(0.5);
+
 }
 
 void request_comms(){
@@ -167,14 +174,30 @@ void receive_rpi_cmd(int howMany){ //polled by master arduino on a 10ms timer
 
 
 void executeCommand(float command){//command = target speed in m/s
+    if(delta_time == 0 ){
+      return; //prevent div by zero
+    }
+
     int target_dir = (command >= 0) ? 1 : -1;
     float target_speed = fabs(command);
-    float error = target_speed - fabs(speed_avg);
+    float error = target_speed - speed_avg;
+
     integral+= error * (delta_time/1000.0);
     float derivative = (error-prev_error)/(delta_time/1000.0);
     output = Kp * error + Ki * integral + Kd * derivative;
-    int pwm_cmd = constrain(abs(int(output)), 0, 255);
+
+    delay(200);
+    Serial.print("ERROR: " + String(Kp*error)+"\n");
+    Serial.print("DERIV: " + String(Kd*derivative)+"\n");
+    Serial.print("INT: " + String(Ki*integral)+"\n");
+    Serial.print("OUTPUT: " + String(output)+"\n");
+
+    int pwm_cmd = constrain(int(output), 65, 255);
     
+    Serial.print("PWM: " + String(pwm_cmd)+"\n");
+    Serial.print("-------------- \n");
+
+
     prev_error = error;
     int current_dir = 0;
     if(direction == "FORWARD"){
