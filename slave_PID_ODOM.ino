@@ -49,7 +49,7 @@ float speed_avg = 0;
 //PID Control
 float Kp = 160.0;  // Proportional gain
 float Ki = 33.0;  // Integral gain
-float Kd = 26.0;  // Derivative gain
+float Kd = 27.0;  // Derivative gain
 float prev_error = 0.0;  // Last error value
 float integral = 0.0;  // Integral sum
 float output = 0.0;
