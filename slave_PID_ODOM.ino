@@ -39,7 +39,7 @@ int buffer_sum = 0;
 int direction_avg = 0;
 
 //moving avg for speed
-const int SPEED_BUFFER_SIZE = 6; //may be too big dunno gotta test with working encoders
+const int SPEED_BUFFER_SIZE = 6;//completely random value but works experimentally
 float speed_buffer[SPEED_BUFFER_SIZE];
 int speed_buffer_index = 0;
 float speed_sum = 0;
@@ -54,27 +54,29 @@ float prev_error = 0.0;  // Last error value
 float integral = 0.0;  // Integral sum
 float output = 0.0;
 
+volatile float current_speed_cmd = 0.0;
 
 void setup() {
-    // hardware interrupt pins
+    // motor driver pins
     pinMode(IN1, OUTPUT);
     pinMode(IN2, OUTPUT);
+     // hardware interrupt pins
     pinMode(ENCPIN1, INPUT);
     pinMode(ENCPIN2, INPUT);
     attachInterrupt(digitalPinToInterrupt(ENCPIN1), isr_enc1, CHANGE);
     attachInterrupt(digitalPinToInterrupt(ENCPIN2), isr_enc2, CHANGE);
-
+    // comms
     Serial.begin(9600);
     Wire.begin(I2C_ADDR);
     Wire.onReceive(receive_rpi_cmd);
     Wire.onRequest(request_comms);
     
-    // movnig avg buffer
+    // movnig avg buffers for the speed and direction
     for (int i = 0; i < BUFFER_SIZE; i++) {
         direction_buffer[i] = 0;
     }
     for (int i = 0; i < SPEED_BUFFER_SIZE; i++) {
-        speed_buffer[i] = 0.0; // Initialize the speed buffer
+        speed_buffer[i] = 0.0;
     }
     prev_measure_time = millis();
 }
@@ -83,14 +85,13 @@ void loop() {
     long current_time = millis();
     delta_time = current_time - prev_measure_time;
 
-
-    if(delta_time>10){ //calculate every 30ms but dunno if thats good or not
+    if(delta_time>10){
         int delta_enc1_count = abs(enc1_count - prev_enc1_count);
         int delta_enc2_count = abs(enc2_count - prev_enc2_count);
         float revs1 = float(delta_enc1_count) / DISK_SLOTS;
         float revs2 = float(delta_enc2_count) / DISK_SLOTS;
         float revs = (revs1+revs2)/2.0;
-        float distance = revs * WHEEL_CIRC;  //dist
+        float distance = revs * WHEEL_CIRC;  //m
         speed = distance / (delta_time / 1000.0);  //m/s
         //speed moving avg
         speed_sum -= speed_buffer[speed_buffer_index];
@@ -98,7 +99,7 @@ void loop() {
         speed_sum += speed;
         speed_buffer_index = (speed_buffer_index + 1) % SPEED_BUFFER_SIZE;
         speed_avg = speed_sum / SPEED_BUFFER_SIZE;
-        Serial.print("SPEED. "+String(speed_avg)+"\n");
+        //Serial.print("SPEED meas "+String(speed_avg)+"\n");
 
         float first_half_avg = 0;
         float second_half_avg = 0;
@@ -138,16 +139,13 @@ void loop() {
 
     direction_avg = buffer_sum / BUFFER_SIZE;
 
-
     if (static_counter > 5) {
         direction = "STATIC";
     }
 
     //Serial.print(direction + "\n");
     //Serial.print(String(direction_avg)+"\n");
-
-    executeCommand(0.5);
-
+    executeCommand(current_speed_cmd);
 }
 
 void request_comms(){
@@ -160,7 +158,7 @@ void request_comms(){
 }
 
 
-void receive_rpi_cmd(int howMany){ //polled by master arduino on a 10ms timer
+void receive_rpi_cmd(int howMany){ //receiving speed by master arduino on a 10ms ROS2 timer
     while (Wire.available()){
         //float = 4 bytes
         byte float_bytes[4];
@@ -168,7 +166,13 @@ void receive_rpi_cmd(int howMany){ //polled by master arduino on a 10ms timer
             float_bytes[i] = Wire.read();
         }
         float received_cmd = *((float*)float_bytes);
-        executeCommand(received_cmd); 
+
+        if(current_speed_cmd != received_cmd){
+          current_speed_cmd = received_cmd;
+          executeCommand(current_speed_cmd);
+        }else{
+          executeCommand(current_speed_cmd);
+        }
     }
 }
 
@@ -186,17 +190,16 @@ void executeCommand(float command){//command = target speed in m/s
     float derivative = (error-prev_error)/(delta_time/1000.0);
     output = Kp * error + Ki * integral + Kd * derivative;
 
-    delay(200);
-    Serial.print("ERROR: " + String(Kp*error)+"\n");
-    Serial.print("DERIV: " + String(Kd*derivative)+"\n");
-    Serial.print("INT: " + String(Ki*integral)+"\n");
-    Serial.print("OUTPUT: " + String(output)+"\n");
+    //delay(200);
+    //Serial.print("ERROR: " + String(Kp*error)+"\n");
+    //Serial.print("DERIV: " + String(Kd*derivative)+"\n");
+    //Serial.print("INT: " + String(Ki*integral)+"\n");
+    //Serial.print("OUTPUT: " + String(output)+"\n");
 
     int pwm_cmd = constrain(int(output), 65, 255);
     
-    Serial.print("PWM: " + String(pwm_cmd)+"\n");
-    Serial.print("-------------- \n");
-
+    //Serial.print("PWM: " + String(pwm_cmd)+"\n");
+    //Serial.print("-------------- \n");
 
     prev_error = error;
     int current_dir = 0;
