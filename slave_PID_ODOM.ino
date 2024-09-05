@@ -3,7 +3,7 @@
 
 #include <Wire.h>
 
-const int I2C_ADDR = 0x10;
+const int I2C_ADDR = 0x30;
 //front right = 0x10, front left = 0x20, back right = 0x30, back left = 0x40
 
 //Motor Driver Input pins
@@ -14,7 +14,7 @@ const int IN2 = 10;
 const int ENCPIN1 = 2;
 const int ENCPIN2 = 3;
 
-const float DISK_SLOTS = 73;  // 73 slots per revolution ???? CHECK THIS
+const float CNTS_PER_REV = 46;  // 46 counts per revolution empirically
 const float WHEEL_RADIUS = 0.056;  // 60mm radius without tyre deformation(not realistic)
 const float WHEEL_CIRC = 2*PI*WHEEL_RADIUS;
 
@@ -39,17 +39,18 @@ int buffer_sum = 0;
 int direction_avg = 0;
 
 //moving avg for speed
-const int SPEED_BUFFER_SIZE = 6;//completely random value but works experimentally
+const int SPEED_BUFFER_SIZE = 10;//completely random value but works experimentally
 float speed_buffer[SPEED_BUFFER_SIZE];
 int speed_buffer_index = 0;
 float speed_sum = 0;
 float speed_avg = 0;
+volatile float prev_speed_avg = 0.0;
 
 
 //PID Control
-float Kp = 160.0;  // Proportional gain
+float Kp = 150.0;  // Proportional gain
 float Ki = 33.0;  // Integral gain
-float Kd = 27.0;  // Derivative gain
+float Kd = 26.0;  // Derivative gain
 float prev_error = 0.0;  // Last error value
 float integral = 0.0;  // Integral sum
 float output = 0.0;
@@ -84,12 +85,13 @@ void setup() {
 void loop() {
     long current_time = millis();
     delta_time = current_time - prev_measure_time;
-
-    if(delta_time>10){
+    //Serial.print(String(enc1_count)+"\n");
+    
+    if(delta_time>3){//arbitrary value, lower value => higher responsiveness
         int delta_enc1_count = abs(enc1_count - prev_enc1_count);
         int delta_enc2_count = abs(enc2_count - prev_enc2_count);
-        float revs1 = float(delta_enc1_count) / DISK_SLOTS;
-        float revs2 = float(delta_enc2_count) / DISK_SLOTS;
+        float revs1 = float(delta_enc1_count) / CNTS_PER_REV;//replace with encoder counts per revolution to be more precise
+        float revs2 = float(delta_enc2_count) / CNTS_PER_REV;
         float revs = (revs1+revs2)/2.0;
         float distance = revs * WHEEL_CIRC;  //m
         speed = distance / (delta_time / 1000.0);  //m/s
@@ -99,7 +101,8 @@ void loop() {
         speed_sum += speed;
         speed_buffer_index = (speed_buffer_index + 1) % SPEED_BUFFER_SIZE;
         speed_avg = speed_sum / SPEED_BUFFER_SIZE;
-        //Serial.print("SPEED meas "+String(speed_avg)+"\n");
+        //prev_speed_avg = speed_avg;  done in the pid calculation
+        //Serial.print(String(speed_avg)+"\n");
 
         float first_half_avg = 0;
         float second_half_avg = 0;
@@ -121,7 +124,7 @@ void loop() {
             static_counter++;
         }
         
-        //Serial.print(String(speed_avg)+"\n");
+        Serial.print(String(speed_avg)+"\n");
         prev_measure_time = current_time;
         prev_enc1_count = enc1_count;
         prev_enc2_count = enc2_count;
@@ -187,7 +190,22 @@ void executeCommand(float command){//command = target speed in m/s
     float error = target_speed - speed_avg;
 
     integral+= error * (delta_time/1000.0);
-    float derivative = (error-prev_error)/(delta_time/1000.0);
+    
+    //clamp the integral term to limit windup
+    if(fabs(integral) > 5.0){
+      integral = sign(integral) * 5.0;
+    }
+
+    //float derivative = (error-prev_error)/(delta_time/1000.0);
+    //calculate derivative on the measurement instead of the error
+    float derivative = -(speed_avg - prev_speed_avg) / (delta_time / 1000.0);
+    prev_speed_avg = speed_avg;
+
+    //clamp the derivative term because it can lead to instability if there is a delay in the system
+    if(fabs(derivative) > 5.0){
+      derivative = sign(derivative) * 5.0;
+    }
+
     output = Kp * error + Ki * integral + Kd * derivative;
 
     //delay(200);
@@ -199,7 +217,6 @@ void executeCommand(float command){//command = target speed in m/s
     int pwm_cmd = constrain(int(output), 65, 255);
     
     //Serial.print("PWM: " + String(pwm_cmd)+"\n");
-    //Serial.print("-------------- \n");
 
     prev_error = error;
     int current_dir = 0;
