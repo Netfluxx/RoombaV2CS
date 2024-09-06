@@ -1,4 +1,3 @@
-LICENSE
 package.xml
 setup.cfg
 setup.py
@@ -11,7 +10,11 @@ setup.py
 ../../build/RoverInput/RoverInput.egg-info/zip-safe
 RoverInput/__init__.py
 RoverInput/input_node.py
+RoverInput.egg-info/PKG-INFO
+RoverInput.egg-info/SOURCES.txt
+RoverInput.egg-info/dependency_links.txt
+RoverInput.egg-info/entry_points.txt
+RoverInput.egg-info/requires.txt
+RoverInput.egg-info/top_level.txt
+RoverInput.egg-info/zip-safe
 resource/RoverInput
-test/test_copyright.py
-test/test_flake8.py
-test/test_pep257.py

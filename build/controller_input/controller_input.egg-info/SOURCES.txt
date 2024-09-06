@@ -1,4 +1,3 @@
-LICENSE
 package.xml
 setup.cfg
 setup.py
@@ -11,7 +10,11 @@ setup.py
 ../../build/controller_input/controller_input.egg-info/zip-safe
 config/joystick_params.yaml
 controller_input/__init__.py
+controller_input.egg-info/PKG-INFO
+controller_input.egg-info/SOURCES.txt
+controller_input.egg-info/dependency_links.txt
+controller_input.egg-info/entry_points.txt
+controller_input.egg-info/requires.txt
+controller_input.egg-info/top_level.txt
+controller_input.egg-info/zip-safe
 launch/joystick.launch.py
-test/test_copyright.py
-test/test_flake8.py
-test/test_pep257.py

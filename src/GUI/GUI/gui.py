@@ -22,7 +22,7 @@ class RoverDashboard(Node):
         self.create_subscription(String, '/wheel_speeds', self.wheel_speeds_callback, 10)
         self.create_subscription(Odometry, '/odom', self.odom_callback, 10)
         self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)
-        self.create_subscription(String, '/battery_and_cpu', self.battery_callback, 10)
+        self.create_subscription(String, '/battery', self.battery_callback, 10)
         
         #ROS2 publisher for buttons to switch between manual and autonomous
         self.rover_mode_publisher = self.create_publisher(String, '/rover_mode', 10)
@@ -151,6 +151,11 @@ class RoverDashboard(Node):
 
         except Exception as e:
             self.get_logger().error(f"Error processing wheel speeds: {str(e)}")
+
+    def battery_callback(self, msg):
+        #map 12V to 18V to 0% to 100%
+        batt_percent = (float(msg) - 12) * 100 / 6
+        self.battery_var.set(f"Battery: {msg}, {batt_percent:.2f}%")
 
     def update_graph(self):
         time_point = len(self.time_data) / 10  # Simulate time (assuming 10Hz data rate)

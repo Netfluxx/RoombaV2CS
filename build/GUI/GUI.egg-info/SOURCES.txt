@@ -11,7 +11,11 @@ setup.py
 GUI/__init__.py
 GUI/fake_occupancy_grid_publisher.py
 GUI/gui.py
+GUI.egg-info/PKG-INFO
+GUI.egg-info/SOURCES.txt
+GUI.egg-info/dependency_links.txt
+GUI.egg-info/entry_points.txt
+GUI.egg-info/requires.txt
+GUI.egg-info/top_level.txt
+GUI.egg-info/zip-safe
 resource/GUI
-test/test_copyright.py
-test/test_flake8.py
-test/test_pep257.py

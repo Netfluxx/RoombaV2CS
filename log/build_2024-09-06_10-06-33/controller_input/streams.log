@@ -1,0 +1,21 @@
+[1.976s] Invoking command in '/home/arno/RoombaV2CS/build/controller_input': PYTHONPATH=/home/arno/RoombaV2CS/build/controller_input/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/controller_input/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/controller_input/build --no-deps symlink_data --force
+[2.684s] running develop
+[2.684s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[2.684s]   warnings.warn(
+[3.079s] running egg_info
+[3.079s] writing controller_input.egg-info/PKG-INFO
+[3.079s] writing dependency_links to controller_input.egg-info/dependency_links.txt
+[3.080s] writing entry points to controller_input.egg-info/entry_points.txt
+[3.080s] writing requirements to controller_input.egg-info/requires.txt
+[3.080s] writing top-level names to controller_input.egg-info/top_level.txt
+[3.083s] reading manifest file 'controller_input.egg-info/SOURCES.txt'
+[3.084s] writing manifest file 'controller_input.egg-info/SOURCES.txt'
+[3.086s] running build_ext
+[3.087s] Creating /home/arno/RoombaV2CS/install/controller_input/lib/python3.10/site-packages/controller-input.egg-link (link to .)
+[3.088s] 
+[3.088s] Installed /home/arno/RoombaV2CS/build/controller_input
+[3.089s] running symlink_data
+[3.089s] symbolically linking /home/arno/RoombaV2CS/build/controller_input/package.xml -> /home/arno/RoombaV2CS/install/controller_input/share/controller_input
+[3.089s] symbolically linking /home/arno/RoombaV2CS/build/controller_input/launch/joystick.launch.py -> /home/arno/RoombaV2CS/install/controller_input/share/controller_input/launch
+[3.089s] symbolically linking /home/arno/RoombaV2CS/build/controller_input/config/joystick_params.yaml -> /home/arno/RoombaV2CS/install/controller_input/share/controller_input/config
+[3.132s] Invoked command in '/home/arno/RoombaV2CS/build/controller_input' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/controller_input/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/controller_input/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/controller_input/build --no-deps symlink_data --force

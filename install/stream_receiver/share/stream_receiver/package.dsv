@@ -4,3 +4,6 @@ source;share/stream_receiver/hook/pythonpath.sh
 source;share/stream_receiver/hook/ament_prefix_path.ps1
 source;share/stream_receiver/hook/ament_prefix_path.dsv
 source;share/stream_receiver/hook/ament_prefix_path.sh
+source;../../build/stream_receiver/share/stream_receiver/hook/pythonpath_develop.ps1
+source;../../build/stream_receiver/share/stream_receiver/hook/pythonpath_develop.dsv
+source;../../build/stream_receiver/share/stream_receiver/hook/pythonpath_develop.sh

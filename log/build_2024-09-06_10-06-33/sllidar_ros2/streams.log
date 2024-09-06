@@ -1,0 +1,88 @@
+[0.904s] Invoking command in '/home/arno/RoombaV2CS/build/sllidar_ros2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arno/RoombaV2CS/install/stream_receiver:/home/arno/RoombaV2CS/install/controller_input:/home/arno/RoombaV2CS/install/RoverInput:/home/arno/RoombaV2CS/install/GUI:/home/arno/hd/ERC_HD/install/perception:/opt/ros/humble /usr/bin/cmake /home/arno/RoombaV2CS/src/sllidar_ros2 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/arno/RoombaV2CS/install/sllidar_ros2
+[0.925s] -- Found ament_cmake: 1.3.10 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.076s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.092s] -- Found rclcpp: 16.0.10 (/opt/ros/humble/share/rclcpp/cmake)
+[1.138s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.142s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.153s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.167s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.185s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.236s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.238s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.416s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.537s] -- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.623s] -- Found std_srvs: 4.2.4 (/opt/ros/humble/share/std_srvs/cmake)
+[1.812s] -- Configuring done
+[1.845s] -- Generating done
+[1.848s] -- Build files have been written to: /home/arno/RoombaV2CS/build/sllidar_ros2
+[1.860s] Invoked command in '/home/arno/RoombaV2CS/build/sllidar_ros2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arno/RoombaV2CS/install/stream_receiver:/home/arno/RoombaV2CS/install/controller_input:/home/arno/RoombaV2CS/install/RoverInput:/home/arno/RoombaV2CS/install/GUI:/home/arno/hd/ERC_HD/install/perception:/opt/ros/humble /usr/bin/cmake /home/arno/RoombaV2CS/src/sllidar_ros2 -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/arno/RoombaV2CS/install/sllidar_ros2
+[1.863s] Invoking command in '/home/arno/RoombaV2CS/build/sllidar_ros2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arno/RoombaV2CS/install/stream_receiver:/home/arno/RoombaV2CS/install/controller_input:/home/arno/RoombaV2CS/install/RoverInput:/home/arno/RoombaV2CS/install/GUI:/home/arno/hd/ERC_HD/install/perception:/opt/ros/humble /usr/bin/cmake --build /home/arno/RoombaV2CS/build/sllidar_ros2 -- -j8 -l8
+[1.922s] [35m[1mConsolidate compiler generated dependencies of target sllidar_client[0m
+[1.930s] [35m[1mConsolidate compiler generated dependencies of target sllidar_node[0m
+[1.981s] [  5%] [32m[1mLinking CXX executable sllidar_client[0m
+[1.989s] [ 10%] [32mBuilding CXX object CMakeFiles/sllidar_node.dir/src/sllidar_node.cpp.o[0m
+[2.864s] [ 15%] Built target sllidar_client
+[5.459s] In file included from [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/./sdk/include/sl_lidar_cmd.h:41[m[K,
+[5.459s]                  from [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/./sdk/include/sl_lidar_driver.h:54[m[K,
+[5.459s]                  from [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/./sdk/include/sl_lidar.h:36[m[K,
+[5.459s]                  from [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/src/sllidar_node.cpp:38[m[K:
+[5.459s] [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/./sdk/include/sl_lidar_protocol.h:66:16:[m[K [01;35m[Kwarning: [m[KISO C++ forbids zero-size array ‘[01m[Kdata[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wpedantic-Wpedantic]8;;[m[K]
+[5.459s]    66 |     sl_u8 data[[01;35m[K0[m[K];
+[5.460s]       |                [01;35m[K^[m[K
+[5.460s] In file included from [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/./sdk/include/sl_lidar_driver.h:54[m[K,
+[5.460s]                  from [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/./sdk/include/sl_lidar.h:36[m[K,
+[5.460s]                  from [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/src/sllidar_node.cpp:38[m[K:
+[5.460s] [01m[K/home/arno/RoombaV2CS/src/sllidar_ros2/./sdk/include/sl_lidar_cmd.h:324:20:[m[K [01;35m[Kwarning: [m[KISO C++ forbids zero-size array ‘[01m[Kpayload[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wpedantic-Wpedantic]8;;[m[K]
+[5.460s]   324 |     sl_u8  payload[[01;35m[K0[m[K];
+[5.460s]       |                    [01;35m[K^[m[K
+[7.985s] [ 20%] [32m[1mLinking CXX executable sllidar_node[0m
+[8.278s] [100%] Built target sllidar_node
+[8.287s] Invoked command in '/home/arno/RoombaV2CS/build/sllidar_ros2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arno/RoombaV2CS/install/stream_receiver:/home/arno/RoombaV2CS/install/controller_input:/home/arno/RoombaV2CS/install/RoverInput:/home/arno/RoombaV2CS/install/GUI:/home/arno/hd/ERC_HD/install/perception:/opt/ros/humble /usr/bin/cmake --build /home/arno/RoombaV2CS/build/sllidar_ros2 -- -j8 -l8
+[8.345s] Invoking command in '/home/arno/RoombaV2CS/build/sllidar_ros2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arno/RoombaV2CS/install/stream_receiver:/home/arno/RoombaV2CS/install/controller_input:/home/arno/RoombaV2CS/install/RoverInput:/home/arno/RoombaV2CS/install/GUI:/home/arno/hd/ERC_HD/install/perception:/opt/ros/humble /usr/bin/cmake --install /home/arno/RoombaV2CS/build/sllidar_ros2
+[8.351s] -- Install configuration: ""
+[8.351s] -- Execute custom install script
+[8.351s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a1_launch.py
+[8.359s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a2m12_launch .py
+[8.366s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a2m7_launch.py
+[8.373s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a2m8_launch.py
+[8.380s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_a3_launch.py
+[8.387s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_c1_launch.py
+[8.394s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s1_launch.py
+[8.401s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s1_tcp_launch.py
+[8.408s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s2_launch.py
+[8.415s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s2e_launch.py
+[8.422s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_s3_launch.py
+[8.429s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/sllidar_t1_launch.py
+[8.437s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a1_launch.py
+[8.445s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a2m12_launch.py
+[8.453s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a2m7_launch.py
+[8.461s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a2m8_launch.py
+[8.468s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_a3_launch.py
+[8.476s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_c1_launch.py
+[8.485s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s1_launch.py
+[8.493s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s1_tcp_launch.py
+[8.501s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s2_launch.py
+[8.508s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s2e_launch.py
+[8.516s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_s3_launch.py
+[8.524s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/launch/view_sllidar_t1_launch.py
+[8.532s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/rviz/sllidar_ros2.rviz
+[8.539s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/lib/sllidar_ros2/sllidar_node
+[8.547s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/lib/sllidar_ros2/sllidar_client
+[8.553s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/ament_index/resource_index/package_run_dependencies/sllidar_ros2
+[8.560s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/ament_index/resource_index/parent_prefix_path/sllidar_ros2
+[8.567s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/environment/ament_prefix_path.sh
+[8.574s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/environment/ament_prefix_path.dsv
+[8.581s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/environment/path.sh
+[8.588s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/environment/path.dsv
+[8.596s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/local_setup.bash
+[8.603s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/local_setup.sh
+[8.611s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/local_setup.zsh
+[8.619s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/local_setup.dsv
+[8.627s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/package.dsv
+[8.638s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/ament_index/resource_index/packages/sllidar_ros2
+[8.647s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/cmake/ament_cmake_export_dependencies-extras.cmake
+[8.655s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/cmake/ament_cmake_export_include_directories-extras.cmake
+[8.662s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/cmake/sllidar_ros2Config.cmake
+[8.669s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/cmake/sllidar_ros2Config-version.cmake
+[8.677s] -- Symlinking: /home/arno/RoombaV2CS/install/sllidar_ros2/share/sllidar_ros2/package.xml
+[8.686s] Invoked command in '/home/arno/RoombaV2CS/build/sllidar_ros2' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/arno/RoombaV2CS/install/stream_receiver:/home/arno/RoombaV2CS/install/controller_input:/home/arno/RoombaV2CS/install/RoverInput:/home/arno/RoombaV2CS/install/GUI:/home/arno/hd/ERC_HD/install/perception:/opt/ros/humble /usr/bin/cmake --install /home/arno/RoombaV2CS/build/sllidar_ros2
