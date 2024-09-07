@@ -1,0 +1,20 @@
+[2.581s] Invoking command in '/home/arno/RoombaV2CS/build/GUI': PYTHONPATH=/home/arno/RoombaV2CS/build/GUI/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/GUI/build --no-deps symlink_data
+[3.120s] running develop
+[3.121s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[3.121s]   warnings.warn(
+[3.475s] running egg_info
+[3.476s] writing GUI.egg-info/PKG-INFO
+[3.476s] writing dependency_links to GUI.egg-info/dependency_links.txt
+[3.476s] writing entry points to GUI.egg-info/entry_points.txt
+[3.476s] writing requirements to GUI.egg-info/requires.txt
+[3.477s] writing top-level names to GUI.egg-info/top_level.txt
+[3.479s] reading manifest file 'GUI.egg-info/SOURCES.txt'
+[3.480s] writing manifest file 'GUI.egg-info/SOURCES.txt'
+[3.483s] running build_ext
+[3.484s] Creating /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI.egg-link (link to .)
+[3.486s] Installing fake_map_pub script to /home/arno/RoombaV2CS/install/GUI/lib/GUI
+[3.486s] Installing gui script to /home/arno/RoombaV2CS/install/GUI/lib/GUI
+[3.487s] 
+[3.487s] Installed /home/arno/RoombaV2CS/build/GUI
+[3.488s] running symlink_data
+[3.528s] Invoked command in '/home/arno/RoombaV2CS/build/GUI' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/GUI/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/GUI/build --no-deps symlink_data

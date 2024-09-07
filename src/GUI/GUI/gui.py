@@ -4,6 +4,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 from nav_msgs.msg import OccupancyGrid, Odometry
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 import tkinter as tk
 import customtkinter as ctk
 from threading import Thread
@@ -25,6 +26,7 @@ class RoverDashboard(Node):
         self.create_subscription(Odometry, '/odom', self.odom_callback, 10)
         self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)
         self.create_subscription(String, '/battery', self.battery_callback, 10)
+        self.create_subscription(String, '/system_info', self.system_info_callback, 10)
         
         #ROS2 publisher for buttons to switch between manual and autonomous
         self.rover_mode_publisher = self.create_publisher(String, '/rover_mode', 10)
@@ -34,6 +36,7 @@ class RoverDashboard(Node):
         self.root = ctk.CTk()
         self.root.title("Rover Dashboard")
         self.root.geometry("1600x900")
+
 
         # Configure grid
         self.root.grid_columnconfigure(0, weight=1)
@@ -66,7 +69,7 @@ class RoverDashboard(Node):
             self.root, 
             corner_radius=10,
             width=frame_width, 
-            height=frame_height, 
+            height=frame_height,
             fg_color="black"
         )
 
@@ -85,6 +88,17 @@ class RoverDashboard(Node):
         self.battery_label = ctk.CTkLabel(self.root, textvariable=self.battery_var)
         self.battery_label.grid(row=3, column=0, padx=10, pady=5, sticky="se")
 
+        # System Info labels for CPU temperature, CPU utilization, RAM utilization
+        self.cpu_util_var = tk.StringVar(value="CPU: N/A, T°: N/A")
+        self.ram_util_var = tk.StringVar(value="RAM: N/A")
+
+        self.cpu_util_label = ctk.CTkLabel(self.root, textvariable=self.cpu_util_var)
+        self.ram_util_label = ctk.CTkLabel(self.root, textvariable=self.ram_util_var)
+
+        # Place system info labels
+        self.cpu_util_label.grid(row=0, column=2, padx=5, pady=2, sticky="se")
+        self.ram_util_label.grid(row=0, column=3, padx=5, pady=2, sticky="se")
+        
         # Initialize wheel speed labels (Bottom Right)
         self.wheel_names = ["Front Right", "Front Left", "Back Right", "Back Left"]
         self.wheel_speeds = {name: 0 for name in self.wheel_names}  # Initialize wheel speeds
@@ -128,7 +142,7 @@ class RoverDashboard(Node):
         # Ensure the terminal frame is ready
         self.terminal_frame.update_idletasks()
         terminal_id = self.terminal_frame.winfo_id()
-        command = f"xterm -into {terminal_id} -geometry 76x24 -fa 'Monospace' -e wavemon &"
+        command = f"xterm -into {terminal_id} -geometry 85x24 -fa 'Monospace' -e wavemon &"
         os.system(command)
 
     def run_ros2(self):
@@ -137,15 +151,22 @@ class RoverDashboard(Node):
         except Exception as e:
             self.get_logger().error(f"Error running ROS2 spinner: {str(e)}")
 
+    def system_info_callback(self, msg):
+        try:
+            data = msg.data.split(',')
+            if len(data) == 3:
+                self.cpu_util_var.set(f"CPU: {data[1]}%, T°: {data[0]}°C")
+                self.ram_util_var.set(f"RAM: {data[2]}%")
+            else:
+                self.get_logger().warn("Received malformed system info data.")
+        except Exception as e:
+            self.get_logger().error(f"Error processing system info: {str(e)}")
+
+
     def wheel_speeds_callback(self, msg):
         try:
-            if msg is None:
-                self.get_logger().warn("Received None message in wheel_speeds_callback")
-                return  # Ignore None messages
-
-            # Ensure msg.data is not None
-            if msg.data is None:
-                self.get_logger().warn("Received message with no data in wheel_speeds_callback")
+            if msg is None or msg.data is None:
+                self.get_logger().warn("Received invalid wheel speeds")
                 return
             
             self.wheel_speeds_list = msg.data.split(",")
@@ -157,11 +178,9 @@ class RoverDashboard(Node):
             for i, name in enumerate(self.wheel_names):
                 self.wheel_speeds[name] = float(self.wheel_speeds_list[i])
 
-            # Update the wheel speed labels
             for name, speed in self.wheel_speeds.items():
                 self.wheel_speed_labels[name].configure(text=f"{name}: {speed:.2f} m/s")
 
-            # Schedule graph update on the main thread
             self.root.after(0, self.update_graph)
 
         except Exception as e:
@@ -273,11 +292,11 @@ class RoverDashboard(Node):
                         break
 
                 cap.release()
-                time.sleep(5)  # Retry after 5 seconds
+                time.sleep(5)
 
             except Exception as e:
                 self.get_logger().error(f"Error in video stream: {str(e)}")
-                time.sleep(5)  # Retry after 5 seconds
+                time.sleep(5)
 
 
 def main(args=None):

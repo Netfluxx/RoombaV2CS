@@ -1,0 +1,18 @@
+[2.449s] Invoking command in '/home/arno/RoombaV2CS/build/stream_receiver': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/stream_receiver/build --no-deps symlink_data
+[3.114s] running develop
+[3.114s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[3.114s]   warnings.warn(
+[3.388s] running egg_info
+[3.388s] writing stream_receiver.egg-info/PKG-INFO
+[3.388s] writing dependency_links to stream_receiver.egg-info/dependency_links.txt
+[3.388s] writing entry points to stream_receiver.egg-info/entry_points.txt
+[3.389s] writing requirements to stream_receiver.egg-info/requires.txt
+[3.389s] writing top-level names to stream_receiver.egg-info/top_level.txt
+[3.390s] reading manifest file 'stream_receiver.egg-info/SOURCES.txt'
+[3.391s] writing manifest file 'stream_receiver.egg-info/SOURCES.txt'
+[3.393s] running build_ext
+[3.394s] Creating /home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages/stream-receiver.egg-link (link to .)
+[3.396s] 
+[3.396s] Installed /home/arno/RoombaV2CS/build/stream_receiver
+[3.396s] running symlink_data
+[3.433s] Invoked command in '/home/arno/RoombaV2CS/build/stream_receiver' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/stream_receiver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/stream_receiver/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/stream_receiver/build --no-deps symlink_data
