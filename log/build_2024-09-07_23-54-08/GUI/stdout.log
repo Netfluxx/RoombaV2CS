@@ -1,0 +1,20 @@
+running develop
+running egg_info
+writing GUI.egg-info/PKG-INFO
+writing dependency_links to GUI.egg-info/dependency_links.txt
+writing entry points to GUI.egg-info/entry_points.txt
+writing requirements to GUI.egg-info/requires.txt
+writing top-level names to GUI.egg-info/top_level.txt
+reading manifest file 'GUI.egg-info/SOURCES.txt'
+writing manifest file 'GUI.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/arno/RoombaV2CS/install/GUI/lib/python3.10/site-packages/GUI.egg-link (link to .)
+Installing fake_map_pub script to /home/arno/RoombaV2CS/install/GUI/lib/GUI
+Installing gui script to /home/arno/RoombaV2CS/install/GUI/lib/GUI
+
+Installed /home/arno/RoombaV2CS/build/GUI
+running symlink_data
+creating /home/arno/RoombaV2CS/install/GUI/share/GUI/launch
+symbolically linking /home/arno/RoombaV2CS/build/GUI/launch/control_station.launch.py -> /home/arno/RoombaV2CS/install/GUI/share/GUI/launch
+creating /home/arno/RoombaV2CS/install/GUI/share/GUI/config
+symbolically linking /home/arno/RoombaV2CS/build/GUI/config/joystick_params.yaml -> /home/arno/RoombaV2CS/install/GUI/share/GUI/config

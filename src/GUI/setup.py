@@ -7,9 +7,11 @@ setup(
     version='0.0.1',
     packages=find_packages(exclude=['test']),
     data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name + '/launch', [
+            'launch/control_station.launch.py',
+        ]),
+        ('share/' + package_name + '/config', ['config/joystick_params.yaml']),
     ],
     install_requires=['setuptools', 'rclpy', 'customtkinter', 'matplotlib', 'Pillow', 'numpy', 'opencv-python'],
     zip_safe=True,

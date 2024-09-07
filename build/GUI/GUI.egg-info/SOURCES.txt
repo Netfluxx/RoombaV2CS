@@ -18,4 +18,6 @@ GUI.egg-info/entry_points.txt
 GUI.egg-info/requires.txt
 GUI.egg-info/top_level.txt
 GUI.egg-info/zip-safe
+config/joystick_params.yaml
+launch/control_station.launch.py
 resource/GUI

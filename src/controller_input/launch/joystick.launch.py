@@ -16,7 +16,6 @@ def generate_launch_description():
         durability=QoSDurabilityPolicy.VOLATILE
     )
 
-
     joy_node = Node(
         package='joy',
         executable='joy_node',
