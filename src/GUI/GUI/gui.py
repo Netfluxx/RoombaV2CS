@@ -1,3 +1,5 @@
+#credits to chat gpt cuz i don't really care that much abt the gui
+
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -12,7 +14,7 @@ from customtkinter import CTkImage
 import os
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import random
+import time
 
 class RoverDashboard(Node):
     def __init__(self):
@@ -75,7 +77,7 @@ class RoverDashboard(Node):
         self.embed_terminal()
 
         # Other UI elements (Speed, Battery, Controls)
-        self.linear_speed_var = tk.StringVar(value="Rover speed N/A")
+        self.linear_speed_var = tk.StringVar(value="Rover speed ")
         self.linear_speed_label = ctk.CTkLabel(self.root, textvariable=self.linear_speed_var)
         self.linear_speed_label.grid(row=3, column=1, padx=10, pady=5, sticky="se")
 
@@ -121,8 +123,6 @@ class RoverDashboard(Node):
         self.video_thread = Thread(target=self.start_video_stream)
         self.video_thread.start()
 
-        # Test updating wheel speeds manually
-        self.root.after(1000, self.test_update_speeds)
 
     def embed_terminal(self):
         # Ensure the terminal frame is ready
@@ -132,30 +132,53 @@ class RoverDashboard(Node):
         os.system(command)
 
     def run_ros2(self):
-        rclpy.spin(self)
+        try:
+            rclpy.spin(self)
+        except Exception as e:
+            self.get_logger().error(f"Error running ROS2 spinner: {str(e)}")
 
     def wheel_speeds_callback(self, msg):
         try:
-            print("Wheel speeds callback triggered")  # Debugging statement
-            # Generate random speeds for testing
-            self.wheel_speeds_list = [random.uniform(0, 5) for _ in range(4)]
+            if msg is None:
+                self.get_logger().warn("Received None message in wheel_speeds_callback")
+                return  # Ignore None messages
+
+            # Ensure msg.data is not None
+            if msg.data is None:
+                self.get_logger().warn("Received message with no data in wheel_speeds_callback")
+                return
+            
+            self.wheel_speeds_list = msg.data.split(",")
+
+            if len(self.wheel_speeds_list) != 4:
+                self.get_logger().warn(f"Unexpected number of wheel speeds: {len(self.wheel_speeds_list)}")
+                return
+
             for i, name in enumerate(self.wheel_names):
-                self.wheel_speeds[name] = self.wheel_speeds_list[i]
+                self.wheel_speeds[name] = float(self.wheel_speeds_list[i])
 
             # Update the wheel speed labels
             for name, speed in self.wheel_speeds.items():
                 self.wheel_speed_labels[name].configure(text=f"{name}: {speed:.2f} m/s")
 
-            # Update the graph with the new wheel speeds
+            # Schedule graph update on the main thread
             self.root.after(0, self.update_graph)
 
         except Exception as e:
             self.get_logger().error(f"Error processing wheel speeds: {str(e)}")
 
+
     def battery_callback(self, msg):
-        #map 12V to 18V to 0% to 100%
-        batt_percent = (float(msg) - 12) * 100 / 6
-        self.battery_var.set(f"Battery: {msg}, {batt_percent:.2f}%")
+        try:
+            batt_voltage = float(msg.data)
+            # Map 12V to 18V to 0% to 100%
+            batt_percent = (batt_voltage - 12) * 100 / 6
+            batt_percent = max(0, min(100, batt_percent))  # Clamp to 0-100%
+            #self.get_logger().info(f"Received battery voltage: {batt_voltage:.2f}V, {batt_percent:.2f}%")
+            self.battery_var.set(f"Battery: {batt_voltage}V, {batt_percent:.2f}%")
+        except ValueError:
+            self.get_logger().warn(f"Received invalid battery voltage: {msg.data}")
+
 
     def update_graph(self):
         time_point = len(self.time_data) / 10  # Simulate time (assuming 10Hz data rate)
@@ -179,14 +202,6 @@ class RoverDashboard(Node):
         self.ax.legend(loc="upper right")
         self.canvas.draw()
 
-
-    def test_update_speeds(self):
-        # Simulate wheel speeds to manually trigger updates
-        print("Testing update speeds manually")
-        self.wheel_speeds_callback(None)  # Passing None since we're not using the msg
-
-        # Re-trigger every second for testing
-        self.root.after(1000, self.test_update_speeds)
 
     def odom_callback(self, msg):
         linear_speed = msg.twist.twist.linear.x
@@ -226,35 +241,44 @@ class RoverDashboard(Node):
         self.root.after(60, self.update_dashboard)
 
     def start_video_stream(self):
-        
         gst_pipeline = (
             "udpsrc port=5000 ! "
             "application/x-rtp,encoding-name=JPEG,payload=26 ! "
             "rtpjpegdepay ! jpegdec ! videoconvert ! appsink"
         )
 
-        cap = cv2.VideoCapture(gst_pipeline, cv2.CAP_GSTREAMER)
+        while True:
+            try:
+                cap = cv2.VideoCapture(gst_pipeline, cv2.CAP_GSTREAMER)
 
-        if not cap.isOpened():
-            self.get_logger().error("Error: Could not open video stream.")
-            return
+                if not cap.isOpened():
+                    self.get_logger().warn("Could not open video stream. Retrying in 5 seconds...")
+                    cap.release()
+                    time.sleep(5)
+                    continue
 
-        while cap.isOpened():
-            ret, frame = cap.read()
-            if ret:
-                frame = cv2.resize(frame, (640, 480))
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                img = Image.fromarray(frame)
+                while cap.isOpened():
+                    ret, frame = cap.read()
+                    if ret:
+                        frame = cv2.resize(frame, (640, 480))
+                        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                        img = Image.fromarray(frame)
 
-                ctk_img = CTkImage(light_image=img, dark_image=img, size=(640, 480))
+                        ctk_img = CTkImage(light_image=img, dark_image=img, size=(640, 480))
 
-                self.camera_label.configure(image=ctk_img)
-                self.camera_label.image = ctk_img
+                        self.camera_label.configure(image=ctk_img)
+                        self.camera_label.image = ctk_img
+                    else:
+                        self.get_logger().warn("Failed to capture video frame. Retrying in 5 seconds...")
+                        break
 
-            else:
-                self.get_logger().warning("Failed to capture video frame.")
+                cap.release()
+                time.sleep(5)  # Retry after 5 seconds
 
-        cap.release()
+            except Exception as e:
+                self.get_logger().error(f"Error in video stream: {str(e)}")
+                time.sleep(5)  # Retry after 5 seconds
+
 
 def main(args=None):
     rclpy.init(args=args)

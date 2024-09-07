@@ -1,0 +1,18 @@
+[2.338s] Invoking command in '/home/arno/RoombaV2CS/build/controller_input': PYTHONPATH=/home/arno/RoombaV2CS/build/controller_input/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/controller_input/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/controller_input/build --no-deps symlink_data
+[2.758s] running develop
+[2.758s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[2.758s]   warnings.warn(
+[3.044s] running egg_info
+[3.044s] writing controller_input.egg-info/PKG-INFO
+[3.045s] writing dependency_links to controller_input.egg-info/dependency_links.txt
+[3.045s] writing entry points to controller_input.egg-info/entry_points.txt
+[3.045s] writing requirements to controller_input.egg-info/requires.txt
+[3.046s] writing top-level names to controller_input.egg-info/top_level.txt
+[3.049s] reading manifest file 'controller_input.egg-info/SOURCES.txt'
+[3.051s] writing manifest file 'controller_input.egg-info/SOURCES.txt'
+[3.053s] running build_ext
+[3.054s] Creating /home/arno/RoombaV2CS/install/controller_input/lib/python3.10/site-packages/controller-input.egg-link (link to .)
+[3.055s] 
+[3.056s] Installed /home/arno/RoombaV2CS/build/controller_input
+[3.056s] running symlink_data
+[3.099s] Invoked command in '/home/arno/RoombaV2CS/build/controller_input' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/controller_input/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/controller_input/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/controller_input/build --no-deps symlink_data

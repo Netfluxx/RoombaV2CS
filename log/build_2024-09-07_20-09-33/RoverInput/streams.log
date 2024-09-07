@@ -1,0 +1,19 @@
+[1.893s] Invoking command in '/home/arno/RoombaV2CS/build/RoverInput': PYTHONPATH=/home/arno/RoombaV2CS/build/RoverInput/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/RoverInput/build --no-deps symlink_data
+[2.311s] running develop
+[2.312s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[2.312s]   warnings.warn(
+[2.587s] running egg_info
+[2.588s] writing RoverInput.egg-info/PKG-INFO
+[2.588s] writing dependency_links to RoverInput.egg-info/dependency_links.txt
+[2.589s] writing entry points to RoverInput.egg-info/entry_points.txt
+[2.589s] writing requirements to RoverInput.egg-info/requires.txt
+[2.589s] writing top-level names to RoverInput.egg-info/top_level.txt
+[2.592s] reading manifest file 'RoverInput.egg-info/SOURCES.txt'
+[2.593s] writing manifest file 'RoverInput.egg-info/SOURCES.txt'
+[2.595s] running build_ext
+[2.596s] Creating /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput.egg-link (link to .)
+[2.597s] Installing input_node script to /home/arno/RoombaV2CS/install/RoverInput/lib/RoverInput
+[2.597s] 
+[2.598s] Installed /home/arno/RoombaV2CS/build/RoverInput
+[2.598s] running symlink_data
+[2.638s] Invoked command in '/home/arno/RoombaV2CS/build/RoverInput' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/RoverInput/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/arno/RoombaV2CS/build/RoverInput/build --no-deps symlink_data
