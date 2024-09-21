@@ -4,6 +4,3 @@ source;share/RoverInput/hook/pythonpath.sh
 source;share/RoverInput/hook/ament_prefix_path.ps1
 source;share/RoverInput/hook/ament_prefix_path.dsv
 source;share/RoverInput/hook/ament_prefix_path.sh
-source;../../build/RoverInput/share/RoverInput/hook/pythonpath_develop.ps1
-source;../../build/RoverInput/share/RoverInput/hook/pythonpath_develop.dsv
-source;../../build/RoverInput/share/RoverInput/hook/pythonpath_develop.sh

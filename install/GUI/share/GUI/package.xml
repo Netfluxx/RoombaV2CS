@@ -1,1 +1,30 @@
-/home/arno/RoombaV2CS/build/GUI/package.xml
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>GUI</name>
+  <version>0.0.1</version>
+  <description>ROS2 Node that subscribes to the rover data and displays it using customtkinter and matplotlib</description>
+  <maintainer email="arno.blan334@gmail.com">arno</maintainer>
+  <license>Apache License 2.0</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+
+  <exec_depend>python3</exec_depend>
+  <exec_depend>python3-tk</exec_depend>
+  <exec_depend>python3-matplotlib</exec_depend>
+  <exec_depend>customtkinter</exec_depend>
+  <exec_depend>python3-pillow</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

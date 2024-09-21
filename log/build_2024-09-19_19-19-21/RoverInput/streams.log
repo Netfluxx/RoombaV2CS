@@ -1,0 +1,34 @@
+[2.701s] Invoking command in '/home/arno/RoombaV2CS/build/RoverInput': PYTHONPATH=/home/arno/RoombaV2CS/build/RoverInput/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --uninstall --editable --build-directory /home/arno/RoombaV2CS/build/RoverInput/build
+[4.275s] running develop
+[4.276s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[4.276s]   warnings.warn(
+[5.371s] Removing /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput.egg-link (link to .)
+[5.435s] Invoked command in '/home/arno/RoombaV2CS/build/RoverInput' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/RoverInput/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --uninstall --editable --build-directory /home/arno/RoombaV2CS/build/RoverInput/build
+[5.436s] Invoking command in '/home/arno/RoombaV2CS/src/RoverInput': PYTHONPATH=/home/arno/RoombaV2CS/build/RoverInput/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/RoverInput build --build-base /home/arno/RoombaV2CS/build/RoverInput/build install --record /home/arno/RoombaV2CS/build/RoverInput/install.log --single-version-externally-managed install_data --force
+[6.123s] running egg_info
+[6.124s] writing ../../build/RoverInput/RoverInput.egg-info/PKG-INFO
+[6.126s] writing dependency_links to ../../build/RoverInput/RoverInput.egg-info/dependency_links.txt
+[6.126s] writing entry points to ../../build/RoverInput/RoverInput.egg-info/entry_points.txt
+[6.126s] writing requirements to ../../build/RoverInput/RoverInput.egg-info/requires.txt
+[6.127s] writing top-level names to ../../build/RoverInput/RoverInput.egg-info/top_level.txt
+[6.129s] reading manifest file '../../build/RoverInput/RoverInput.egg-info/SOURCES.txt'
+[6.130s] adding license file 'LICENSE'
+[6.132s] writing manifest file '../../build/RoverInput/RoverInput.egg-info/SOURCES.txt'
+[6.133s] running build
+[6.133s] running build_py
+[6.135s] running install
+[6.136s] running install_lib
+[6.136s] creating /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput
+[6.138s] copying /home/arno/RoombaV2CS/build/RoverInput/build/lib/RoverInput/input_node.py -> /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput
+[6.138s] copying /home/arno/RoombaV2CS/build/RoverInput/build/lib/RoverInput/__init__.py -> /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput
+[6.138s] byte-compiling /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput/input_node.py to input_node.cpython-310.pyc
+[6.142s] byte-compiling /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput/__init__.py to __init__.cpython-310.pyc
+[6.142s] running install_data
+[6.143s] copying resource/RoverInput -> /home/arno/RoombaV2CS/install/RoverInput/share/ament_index/resource_index/packages
+[6.143s] copying package.xml -> /home/arno/RoombaV2CS/install/RoverInput/share/RoverInput
+[6.143s] running install_egg_info
+[6.145s] Copying ../../build/RoverInput/RoverInput.egg-info to /home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages/RoverInput-0.0.0-py3.10.egg-info
+[6.147s] running install_scripts
+[6.193s] Installing input_node script to /home/arno/RoombaV2CS/install/RoverInput/lib/RoverInput
+[6.194s] writing list of installed files to '/home/arno/RoombaV2CS/build/RoverInput/install.log'
+[6.248s] Invoked command in '/home/arno/RoombaV2CS/src/RoverInput' returned '0': PYTHONPATH=/home/arno/RoombaV2CS/build/RoverInput/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/arno/RoombaV2CS/install/RoverInput/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/RoverInput build --build-base /home/arno/RoombaV2CS/build/RoverInput/build install --record /home/arno/RoombaV2CS/build/RoverInput/install.log --single-version-externally-managed install_data --force
